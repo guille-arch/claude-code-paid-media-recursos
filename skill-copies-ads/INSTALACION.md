@@ -23,6 +23,11 @@ Genera los textos de anuncio de Google Ads (RSA: 15 titulares + 4 descripciones)
 
 Claude leerá la web, te propondrá categorías y ángulos, redactará, validará y te dejará los archivos en `reports/`. Si quieres otro tono o mercado, díselo ("en español neutro", "más directo", "solo Meta").
 
+## También en claude.ai (versión de navegador)
+
+- **Claude Code en la web (claude.ai/code):** pon la carpeta `copies-ads` en `.claude/skills/` de tu repositorio de GitHub, abre ese repo desde claude.ai/code y pídeselo igual que en local.
+- **Chat de claude.ai:** en planes con "Skills" disponible, ve a Configuración → Capacidades → Skills → "Subir skill" y sube el archivo `copies-ads-claude-ai.zip` (el zip que contiene solo la carpeta `copies-ads`). Activa también "Ejecución de código". En claude.ai el lector de URLs no tiene internet dentro del sandbox, así que Claude leerá la web con su herramienta de navegación y después validará y exportará con los mismos scripts. Si algo falla, pega el texto de la página y sigue igual.
+
 ## Qué obtienes
 
 - `reports/copies_<marca>_<fecha>.json`: el set completo.

@@ -7,6 +7,8 @@ description: Use when the user wants ad copy for Google Ads and/or Meta Ads gene
 
 Genera el set completo de textos de anuncio de un anunciante leyendo su web: un anuncio adaptable de Búsqueda (RSA) por categoría y 3-5 ángulos de Meta con sus variantes. Sin API key: el script solo lee la página; la redacción la haces tú (Claude) en esta sesión; el validador comprueba límites y exporta.
 
+**Dónde funciona:** en Claude Code (local o claude.ai/code, con la carpeta en `.claude/skills/`) y como skill subida a claude.ai (Configuración → Capacidades → Skills). Las rutas de abajo son relativas a la carpeta de esta skill: en Claude Code suele ser `.claude/skills/copies-ads/`; en claude.ai el sandbox la monta en otra ruta (búscala con `find / -name validate_copy.py 2>/dev/null` si hace falta). **En claude.ai los scripts corren sin acceso a internet:** ahí el paso 1 se hace con la herramienta de lectura web (fetch) en vez de con `site_signals.py`; el resto del flujo es idéntico y `validate_copy.py` funciona en ambos (solo usa la librería estándar).
+
 ## Reglas fijas (no negociables)
 
 - **Español de España por defecto** (tú, "apúntate", "coge", "reserva tu plaza"). Si el sitio es claramente de otro mercado (dominio .mx/.ar/.co/.cl/.pe, precios en otra moneda, "usted" dominante), usar español neutro sin voseo y decirlo en la entrega. Nunca voseo.
@@ -20,9 +22,9 @@ Genera el set completo de textos de anuncio de un anunciante leyendo su web: un 
 
 ### 1. Leer la URL (gratis, sin tokens de API)
 ```bash
-python .claude/skills/copies-ads/scripts/site_signals.py https://www.ejemplo.com > /tmp/signals.json
+python scripts/site_signals.py https://www.ejemplo.com > /tmp/signals.json     # ruta relativa a la carpeta de la skill
 ```
-Devuelve título, meta description, OG, encabezados, textos de botones/CTAs, extracto del cuerpo y paleta. Léelo y decide:
+Devuelve título, meta description, OG, encabezados, textos de botones/CTAs, extracto del cuerpo, `model_hint` (ecommerce / lead-gen) y señales de contacto y precios. Si el JSON trae `error` (sitio que bloquea, timeout) o estás en claude.ai sin red en el sandbox, lee la URL con la herramienta web disponible (fetch / búsqueda) y extrae tú esos mismos datos; si tampoco es posible, pide al usuario que pegue el texto visible de la página. Con la información en la mano, decide:
 - **Modelo:** ecommerce (catálogo, carrito, precios por producto) o captación de leads (formulario, teléfono, WhatsApp, presupuesto, reserva).
 - **Categorías:** 1 a 4 (un RSA por categoría: servicio, línea de producto o landing). Si la URL es una sola landing, una categoría.
 - **Mercado e idioma:** España por defecto (ver reglas).
@@ -43,9 +45,9 @@ Por ángulo, un bloque de **Meta**:
 - `headline` ≤40, `description` ≤30, `cta` sugerido del catálogo de Meta (Más información, Registrarte, Comprar, Reservar, Contactarnos, Descargar…).
 
 ### 4. Guardar y validar
-Escribe el JSON con el esquema de `references/ejemplo-salida.json` en `reports/copies_<marca>_<fecha>.json` y ejecuta:
+Escribe el JSON con el esquema de `references/ejemplo-salida.json` en `reports/copies_<marca>_<fecha>.json` (en claude.ai, en el directorio de trabajo del sandbox, y entrega los archivos resultantes al usuario) y ejecuta:
 ```bash
-python .claude/skills/copies-ads/scripts/validate_copy.py reports/copies_<marca>_<fecha>.json --csv
+python scripts/validate_copy.py reports/copies_<marca>_<fecha>.json --csv     # ruta relativa a la carpeta de la skill
 ```
 El validador imprime un informe (longitud por línea, duplicados, comillas, mayúsculas, cobertura 15/3/3, keyword en ≥2 titulares) y con `--csv` exporta `..._google.csv` (formato de importación de Google Ads Editor: una fila por RSA con Headline 1..15 y Description 1..4) y `..._meta.csv` (una fila por variante: ángulo, texto principal, titular, descripción, CTA). **Si hay errores, corrige el JSON y vuelve a validar**; no entregues con errores.
 
