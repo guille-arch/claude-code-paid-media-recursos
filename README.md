@@ -1,4 +1,4 @@
-# Recursos del webinar "Claude Code para Paid Media" · AdData Academy
+# Recursos del webinar "De media buyer saturado a gestor con sistemas: cómo Claude Code multiplica tu capacidad en PPC" · AdData Academy
 
 Tres recursos para los registrados al webinar del **martes 8 de septiembre, 19:00 hora peninsular**.
 
