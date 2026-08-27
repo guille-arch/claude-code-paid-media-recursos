@@ -5,7 +5,7 @@ Tres recursos para los registrados al webinar del **martes 8 de septiembre, 19:0
 | Recurso | Qué es | Enlace |
 |---|---|---|
 | 📘 Guía **"Las 10 tareas de PPC que puedes automatizar hoy"** | PDF de 13 páginas: una ficha por tarea (qué hace la skill, tiempo a mano frente a con la skill, el prompt exacto, qué devuelve, la trampa que evita). | [Descargar PDF](https://github.com/guille-arch/claude-code-paid-media-recursos/releases/latest/download/Guia-10-tareas-PPC-AdData.pdf) |
-| 🧮 **Calculadora de horas y euros** | Cuántas horas recuperas al mes automatizando la operativa, cuánto valen y a cuántas cuentas más podrías llegar. | [Abrir calculadora](https://claude.ai/code/artifact/f28d3874-ea37-4df3-892e-48492130eca7) |
+| 🧮 **Calculadora de horas y euros** | Cuántas horas recuperas al mes automatizando la operativa, cuántos euros netos son (ya pagada la suscripción) y en cuánto tiempo recuperas la inversión inicial. | [Abrir calculadora](https://claude.ai/code/artifact/f28d3874-ea37-4df3-892e-48492130eca7) |
 | ✍️ **Skill "copies-ads"** para Claude Code | Genera los textos de anuncio de Google Ads (RSA) y Meta a partir de una URL, los valida y los exporta en CSV. Sin API key. | [Descargar skill-copies-ads.zip](https://github.com/guille-arch/claude-code-paid-media-recursos/releases/latest/download/skill-copies-ads.zip) · [Página de la release con instrucciones](https://github.com/guille-arch/claude-code-paid-media-recursos/releases/latest) · [Ver el código](skill-copies-ads/) |
 
 ## Cómo instalar la skill en Claude (claude.ai)
