@@ -18,5 +18,9 @@ Tres recursos para los registrados al webinar del **martes 8 de septiembre, 19:0
 
 Detalle completo en [skill-copies-ads/INSTALACION.md](skill-copies-ads/INSTALACION.md).
 
+## Archivos del workspace del curso
+
+La carpeta [`workspace/`](workspace/) tiene la versión vigente de los scripts del workspace del curso **Claude Code para Paid Media**. Las lecciones le piden a Claude Code que los descargue de aquí cuando tu workspace es de una versión anterior, así no tienes que copiar archivos a mano. Detalle en [workspace/README.md](workspace/README.md).
+
 ---
 Guillermo Pareja · AdData Academy · Google Premier Partner · [addata.academy](https://www.addata.academy)
