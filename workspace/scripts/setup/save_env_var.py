@@ -27,6 +27,15 @@ from pathlib import Path
 IS_WINDOWS = platform.system() == "Windows"
 NAME_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
 
+
+def clean_value(value):
+    # PowerShell 5.1 puede anteponer un BOM invisible al pasar texto por tubería.
+    value = value.strip()
+    for bom in ("\ufeff", "\u00ef\u00bb\u00bf"):
+        if value.startswith(bom):
+            value = value[len(bom):]
+    return value.strip()
+
 MANUAL_WINDOWS = (
     "Guárdala a mano: Win + R, escribe sysdm.cpl, Enter > Opciones avanzadas > "
     "Variables de entorno > Variables de usuario > Nueva. Después cierra todas las ventanas de VS Code."
@@ -115,9 +124,9 @@ def read_saved(name):
 def save(name, value):
     if not NAME_RE.match(name):
         sys.exit(f"Nombre de variable inválido: {name}")
+    value = clean_value(value or "")
     if not value:
         sys.exit(f"{name}: el valor está vacío, no se guardó nada.")
-    value = value.strip()
     try:
         _win_write(name, value) if IS_WINDOWS else _unix_write(name, value)
     except Exception as exc:

@@ -14,6 +14,15 @@ import os
 import requests
 import sys
 
+
+def clean_value(value):
+    # PowerShell 5.1 puede anteponer un BOM invisible al pasar texto por tubería.
+    value = value.strip()
+    for bom in ("\ufeff", "\u00ef\u00bb\u00bf"):
+        if value.startswith(bom):
+            value = value[len(bom):]
+    return value.strip()
+
 for _stream in (sys.stdout, sys.stderr):
     try:
         _stream.reconfigure(encoding="utf-8", errors="replace")
@@ -49,9 +58,9 @@ def main():
     print("  - Token corto (generado en Marketing API → Herramientas)")
     print()
 
-    app_id = os.environ.get("META_APP_ID") or input("App ID: ").strip()
-    app_secret = os.environ.get("META_APP_SECRET") or input("App Secret: ").strip()
-    short_token = input("Token corto: ").strip()
+    app_id = os.environ.get("META_APP_ID") or clean_value(input("App ID: "))
+    app_secret = os.environ.get("META_APP_SECRET") or clean_value(input("App Secret: "))
+    short_token = clean_value(input("Token corto: "))
 
     print()
     print("Generando token de larga duración...")
